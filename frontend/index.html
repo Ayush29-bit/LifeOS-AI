@@ -1,17 +1,188 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f1117">
     <title>LifeOS AI</title>
-
     <link rel="stylesheet" href="css/global.css">
 </head>
-
 <body>
+    <div class="app-shell">
 
-    <h1>LifeOS AI</h1>
-    <p>Your life, organized by conversation.</p>
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark" aria-hidden="true">L</div>
+                <span class="brand-name">LifeOS <strong>AI</strong></span>
+            </div>
+            <button class="profile-button" type="button" aria-label="Open profile">A</button>
+        </header>
+
+        <main class="home page-view" id="home" aria-labelledby="greeting">
+            <section class="welcome-section" aria-labelledby="greeting">
+                <p class="eyebrow">YOUR PERSONAL LIFE OS</p>
+                <h1 id="greeting">Hey, Ayush <span aria-hidden="true">&#10024;</span></h1>
+                <p class="subtitle">A little clarity can change the whole shape of your day.</p>
+            </section>
+
+            <section class="quick-actions" aria-labelledby="quick-actions-title">
+                <div class="section-heading">
+                    <h2 id="quick-actions-title">Start with a focus</h2>
+                    <span class="section-kicker">QUICK ACTIONS</span>
+                </div>
+                <button class="action-card" type="button" data-message="Help me plan my day">
+                    <span class="action-icon plan-icon" aria-hidden="true">&#10022;</span>
+                    <span class="action-copy">
+                        <strong>Plan my day</strong>
+                        <span>Organize today's tasks</span>
+                    </span>
+                    <span class="card-arrow" aria-hidden="true">&#8599;</span>
+                </button>
+
+                <button class="action-card" type="button" data-message="Show me my goals">
+                    <span class="action-icon goal-icon" aria-hidden="true">&#9678;</span>
+                    <span class="action-copy">
+                        <strong>My goals</strong>
+                        <span>Track what matters</span>
+                    </span>
+                    <span class="card-arrow" aria-hidden="true">&#8599;</span>
+                </button>
+            </section>
+
+            <section class="chat-section" aria-labelledby="chat-title">
+                <div class="chat-heading">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <h2 id="chat-title">Chat with LifeOS</h2>
+                    <span class="online-label">READY WHEN YOU ARE</span>
+                </div>
+
+                <div class="welcome-message">
+                    <p class="message-label">LIFEOS AI</p>
+                    <h3>What's on your mind?</h3>
+                    <p>Tell me about your tasks, goals, exams, or anything you want to organize.</p>
+                </div>
+
+                <form class="chat-input" id="chat-form">
+                    <button class="icon-button" type="button" aria-label="Add an attachment">+</button>
+                    <input
+                        id="message-input"
+                        type="text"
+                        placeholder="Message LifeOS..."
+                        aria-label="Message LifeOS"
+                        autocomplete="off"
+                    >
+                    <button class="send-button" type="submit" aria-label="Send message">&#8593;</button>
+                </form>
+                <p class="prototype-note" id="prototype-note">Local prototype. Your messages stay on this screen.</p>
+            </section>
+        </main>
+
+        <main class="placeholder-page plan-page page-view" id="plan" aria-labelledby="plan-title" hidden>
+            <header class="plan-heading">
+                <div class="plan-heading-copy">
+                    <p class="eyebrow">DAILY PLANNER</p>
+                    <h1 id="plan-title">My Plan</h1>
+                    <p class="plan-date" id="plan-date"></p>
+                    <p class="subtitle">Let's make today count.</p>
+                </div>
+                <button class="add-task-button" type="button" data-open-task-form>
+                    <span aria-hidden="true">&#43;</span>
+                    Add task
+                </button>
+            </header>
+
+            <section class="progress-card" aria-labelledby="daily-progress-title">
+                <div class="progress-card-heading">
+                    <h2 id="daily-progress-title">Daily progress</h2>
+                    <p id="completion-count" aria-live="polite">0 of 0 tasks complete</p>
+                </div>
+                <div class="progress-track" id="task-progress" role="progressbar" aria-labelledby="daily-progress-title" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">
+                    <span class="progress-fill" id="task-progress-fill"></span>
+                </div>
+            </section>
+
+            <section class="task-list-section" aria-label="Tasks for today">
+                <div class="task-groups" id="task-groups"></div>
+                <div class="empty-state" id="empty-state" hidden>
+                    <h2>No tasks yet</h2>
+                    <p>Add a task to give your day a starting point.</p>
+                    <button class="add-task-button" type="button" data-open-task-form>
+                        <span aria-hidden="true">&#43;</span>
+                        Add task
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <main class="placeholder-page page-view" id="ai" aria-labelledby="ai-title" hidden>
+            <section>
+                <p class="eyebrow">YOUR PERSONAL LIFE OS</p>
+                <h1 id="ai-title">AI</h1>
+                <p class="subtitle">Your space for thoughtful prompts and a little help getting unstuck.</p>
+            </section>
+        </main>
+
+        <main class="placeholder-page page-view" id="progress" aria-labelledby="progress-title" hidden>
+            <section>
+                <p class="eyebrow">YOUR PERSONAL LIFE OS</p>
+                <h1 id="progress-title">Progress</h1>
+                <p class="subtitle">Take a moment to reflect on the steps you have taken toward your goals.</p>
+            </section>
+        </main>
+
+        <main class="placeholder-page page-view" id="journal" aria-labelledby="journal-title" hidden>
+            <section>
+                <p class="eyebrow">YOUR PERSONAL LIFE OS</p>
+                <h1 id="journal-title">Journal</h1>
+                <p class="subtitle">A quiet space to capture what is on your mind today.</p>
+            </section>
+        </main>
+
+        <dialog class="task-dialog" id="task-dialog" aria-labelledby="task-dialog-title">
+            <form class="task-form" id="add-task-form">
+                <div class="dialog-heading">
+                    <div>
+                        <p class="eyebrow">DAILY PLANNER</p>
+                        <h2 id="task-dialog-title">New task</h2>
+                    </div>
+                    <button class="dialog-close" type="button" data-close-task-form aria-label="Close">&#215;</button>
+                </div>
+                <label for="task-title">Task name</label>
+                <input id="task-title" name="title" type="text" maxlength="80" placeholder="e.g. Review biology notes" autocomplete="off" required>
+                <label for="task-time">Time</label>
+                <input id="task-time" name="time" type="time" required>
+                <div class="task-form-actions">
+                    <button class="cancel-task-button" type="button" data-close-task-form>Cancel</button>
+                    <button class="save-task-button" type="submit">Save task</button>
+                </div>
+            </form>
+        </dialog>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item active" href="#home" aria-current="page">
+                <span aria-hidden="true">&#8962;</span>
+                <small>Home</small>
+            </a>
+            <a class="nav-item" href="#plan">
+                <span aria-hidden="true">&#9776;</span>
+                <small>Plan</small>
+            </a>
+            <a class="nav-item" href="#ai">
+                <span aria-hidden="true">&#10022;</span>
+                <small>AI</small>
+            </a>
+            <a class="nav-item" href="#progress">
+                <span aria-hidden="true">&#9685;</span>
+                <small>Progress</small>
+            </a>
+            <a class="nav-item" href="#journal">
+                <span aria-hidden="true">&#9998;</span>
+                <small>Journal</small>
+            </a>
+        </nav>
+
+    </div>
 
     <script src="js/app.js"></script>
 </body>

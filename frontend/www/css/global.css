@@ -1,4 +1,734 @@
+:root {
+    --bg: #0b0e12;
+    --surface: #12171d;
+    --surface-raised: #171d24;
+    --surface-soft: #202832;
+    --line: rgba(218, 230, 237, 0.1);
+    --text: #edf3f3;
+    --muted: #94a3a8;
+    --quiet: #637178;
+    --accent: #a7dfc6;
+    --accent-strong: #6fc9a6;
+    --accent-ink: #12261f;
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2rem;
+    --radius-sm: 0.75rem;
+    --radius-md: 1.25rem;
+    --radius-lg: 1.75rem;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--bg);
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    min-width: 320px;
+    color: var(--text);
+    background: var(--bg);
+    font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.app-shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 920px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: radial-gradient(circle at 87% 0%, rgba(94, 142, 124, 0.14), transparent 28rem), var(--bg);
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.25rem 0.75rem;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+}
+
+.brand-mark {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-radius: 0.6rem;
+    font-weight: 800;
+}
+
+.brand-name strong {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.profile-button,
+.icon-button,
+.send-button {
+    border: 0;
+    cursor: pointer;
+}
+
+.profile-button {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    color: var(--text);
+    background: linear-gradient(145deg, #44545a, #273238);
+    border: 2px solid rgba(167, 223, 198, 0.35);
+    border-radius: 50%;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.home {
+    flex: 1;
+    padding: 2.25rem 1.25rem 7rem;
+}
+
+.placeholder-page {
+    flex: 1;
+    padding: 2.25rem 1.25rem 7rem;
+}
+
+.page-view[hidden] {
+    display: none;
+}
+
+.plan-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: 1.8rem;
+}
+
+.plan-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.plan-heading-copy {
+    min-width: 0;
+}
+
+.plan-heading .eyebrow {
+    margin-bottom: 0.6rem;
+}
+
+.plan-heading h1 {
+    margin: 0;
+    font-size: clamp(2rem, 8vw, 3rem);
+}
+
+.plan-date {
+    margin: 0.55rem 0 0.25rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.plan-heading .subtitle {
+    font-size: 0.9rem;
+}
+
+.add-task-button,
+.save-task-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 2.65rem;
+    padding: 0.65rem 0.8rem;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border: 0;
+    border-radius: 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.add-task-button span {
+    font-size: 1.15rem;
+    line-height: 0.8;
+}
+
+.progress-card {
+    padding: 1rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+}
+
+.progress-card-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.8rem;
+}
+
+.progress-card-heading h2,
+.progress-card-heading p {
+    margin: 0;
+}
+
+.progress-card-heading h2 {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.progress-card-heading p {
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-align: right;
+}
+
+.progress-track {
+    height: 0.45rem;
+    overflow: hidden;
+    background: var(--surface-soft);
+    border-radius: 999px;
+}
+
+.progress-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--accent-strong);
+    border-radius: inherit;
+    transition: width 180ms ease;
+}
+
+.task-groups {
+    display: grid;
+    gap: 1rem;
+    max-height: clamp(14rem, 42vh, 26rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 0.1rem 0.35rem 0;
+    scrollbar-color: var(--surface-soft) transparent;
+    scrollbar-width: thin;
+}
+
+.task-groups[hidden],
+.empty-state[hidden] {
+    display: none;
+}
+
+.task-period-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.45rem;
+}
+
+.task-period-heading h2 {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.task-period-heading span {
+    color: var(--quiet);
+    font-size: 0.6rem;
+}
+
+.task-items {
+    display: grid;
+    gap: 0.45rem;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-height: 3.65rem;
+    padding: 0.7rem 0.8rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.task-checkbox {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: 0 0 auto;
+    margin: 0;
+    accent-color: var(--accent-strong);
+}
+
+.task-copy {
+    display: grid;
+    min-width: 0;
+    gap: 0.2rem;
+}
+
+.task-title {
+    overflow-wrap: anywhere;
+    font-size: 0.82rem;
+    line-height: 1.35;
+}
+
+.task-time {
+    color: var(--muted);
+    font-size: 0.68rem;
+}
+
+.task-item.completed .task-title {
+    color: var(--quiet);
+    text-decoration: line-through;
+}
+
+.empty-state {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    background: var(--surface);
+    border: 1px dashed rgba(218, 230, 237, 0.18);
+    border-radius: var(--radius-md);
+}
+
+.empty-state h2 {
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+.empty-state p {
+    margin-bottom: 1rem;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.task-dialog {
+    width: min(28rem, calc(100vw - 2rem));
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100dvh - 2rem);
+    padding: 1.25rem;
+    color: var(--text);
+    background: var(--surface-raised);
+    border: 1px solid rgba(218, 230, 237, 0.16);
+    border-radius: var(--radius-md);
+}
+
+.task-dialog::backdrop {
+    background: rgba(5, 8, 10, 0.72);
+    backdrop-filter: blur(3px);
+}
+
+.task-form {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.dialog-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.35rem;
+}
+
+.dialog-heading .eyebrow {
+    margin-bottom: 0.45rem;
+}
+
+.dialog-heading h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.dialog-close {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    color: var(--muted);
+    background: var(--surface-soft);
+    border: 0;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.task-form > label {
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+.task-form > input {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.65rem 0.75rem;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 0.7rem;
+    font-size: 0.85rem;
+}
+
+.task-form > input::placeholder {
+    color: var(--quiet);
+}
+
+.task-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+.cancel-task-button {
+    min-height: 2.65rem;
+    padding: 0.6rem 0.85rem;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.eyebrow,
+.section-kicker,
+.message-label {
+    margin: 0;
+    color: var(--accent-strong);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    max-width: 25rem;
+    margin: 0.65rem 0 0.7rem;
+    font-size: clamp(2.25rem, 11vw, 4.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+}
+
+h1 span {
+    color: var(--accent);
+    font-size: 0.55em;
+    vertical-align: 0.18em;
+}
+
+.subtitle {
+    max-width: 25rem;
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+.quick-actions {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 2.5rem;
+}
+
+.section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+}
+
+.section-heading h2 {
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.section-kicker {
+    color: var(--quiet);
+    font-size: 0.58rem;
+}
+
+.action-card {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 5.25rem;
+    padding: 1rem;
+    color: var(--text);
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.action-card:hover {
+    background: var(--surface-raised);
+    border-color: rgba(167, 223, 198, 0.3);
+    transform: translateY(-2px);
+}
+
+.action-icon {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: 0.9rem;
+    place-items: center;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-radius: 0.9rem;
+    font-size: 1.25rem;
+}
+
+.goal-icon {
+    color: #d7caa8;
+    background: #403b2d;
+}
+
+.action-copy {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.action-copy strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.action-copy span {
+    color: var(--muted);
+    font-size: 0.76rem;
+}
+
+.card-arrow {
+    margin-left: auto;
+    color: var(--quiet);
+    font-size: 1.25rem;
+}
+
+.chat-section {
+    margin-top: 2.75rem;
+}
+
+.chat-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.chat-heading h2 {
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.status-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    background: var(--accent-strong);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(111, 201, 166, 0.1);
+}
+
+.online-label {
+    margin-left: auto;
+    color: var(--quiet);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+}
+
+.welcome-message {
+    padding: 1.35rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 0.4rem;
+}
+
+.message-label {
+    margin-bottom: 0.8rem;
+    color: var(--quiet);
+    font-size: 0.58rem;
+}
+
+.welcome-message h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+}
+
+.welcome-message p:last-child {
+    max-width: 29rem;
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-top: 0.75rem;
+    padding: 0.45rem 0.5rem 0.45rem 0.7rem;
+    background: var(--surface-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+}
+
+.chat-input input {
+    min-width: 0;
+    flex: 1;
+    color: var(--text);
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 0.88rem;
+}
+
+.chat-input input::placeholder {
+    color: var(--quiet);
+}
+
+.icon-button {
+    color: var(--muted);
+    background: transparent;
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.send-button {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-radius: 0.8rem;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.prototype-note {
+    margin: 0.75rem 0 0;
+    color: var(--quiet);
+    font-size: 0.68rem;
+    text-align: center;
+}
+
+.bottom-nav {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0.7rem 0.5rem calc(0.7rem + env(safe-area-inset-bottom));
+    background: rgba(14, 18, 22, 0.94);
+    border-top: 1px solid var(--line);
+    backdrop-filter: blur(18px);
+}
+
+.nav-item {
+    display: grid;
+    justify-items: center;
+    gap: 0.25rem;
+    color: var(--quiet);
+    text-decoration: none;
+}
+
+.nav-item span {
+    height: 1.3rem;
+    font-size: 1.25rem;
+    line-height: 1.1;
+}
+
+.nav-item small {
+    font-size: 0.63rem;
+}
+
+.nav-item.active {
+    color: var(--accent);
+}
+
+@media (min-width: 640px) {
+    .topbar {
+        padding: 1.75rem 2.75rem 1rem;
+    }
+
+    .home {
+        padding: 3.75rem 2.75rem 8rem;
+    }
+
+    .placeholder-page {
+        padding: 3.75rem 2.75rem 8rem;
+    }
+
+    .plan-page {
+        gap: 1.5rem;
+    }
+
+    .task-groups {
+        max-height: min(48vh, 32rem);
+    }
+
+    .quick-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .section-heading {
+        grid-column: 1 / -1;
+    }
+
+    .chat-section {
+        max-width: 42rem;
+        margin-top: 4rem;
+    }
 }
